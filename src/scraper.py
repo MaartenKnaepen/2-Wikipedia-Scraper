@@ -5,6 +5,12 @@ import pandas as pd
 from json import loads, dumps
 import json
 
+main_dict = {1:'be', 2:'fr',3:'ma', 4:'ru',5:'us'}
+   
+def select_country(key):
+    value = main_dict[int(key)]
+    return value
+
 class WikipediaScraper:
     def __init__(self):
         self.base_url = 'https://country-leaders.onrender.com'
@@ -24,14 +30,14 @@ class WikipediaScraper:
         self.countries = requests.get(self.country_endpoint, cookies = self.cookie)
         print(f"The retrieved countries are: {self.countries.text}")
 
-    def get_leaders(self, country: str) -> None:
-        if country in ["ma","us","fr","be","ru"]:
-            self.country = '?country=' + country
-        self.leader_country_endpoint = self.leaders_endpoint + self.country
+    def get_leaders(self, cntry) -> None:
+        self.leader_country_endpoint = self.leaders_endpoint + '?country=' + cntry
         self.leader = requests.get(self.leader_country_endpoint, cookies=self.cookie)
+        self.dict_lst = ['id','first_name','last_name','birth_date','death_date','place_of_birth','wikipedia_url','start_mandate', 'end_mandate']
         self.leader_json = self.leader.json()
-        return self.leader_json
-
+        for a in self.dict_lst:
+            self.leaders_data[a] = [self.leader_json[i][a] for i in range(len(self.leader_json))]
+        
     def get_first_paragraph(self, wikipedia_url: str) -> str:
         self.wikipedia_url = wikipedia_url  
         self.r = requests.get(wikipedia_url)
@@ -50,10 +56,10 @@ class WikipediaScraper:
   
     def append_wiki_bio(self):
         bio = []
-        for url in self.df['wikipedia_url']:
+        for url in self.leaders_data['wikipedia_url']:
             self.paragraph = self.get_first_paragraph(url)
             bio.append(self.paragraph)
-        self.df['biography'] = bio
+        self.leaders_data['biography'] = bio
 
     def into_dataframe(self):
         self.df = pd.DataFrame(self.leader_json)
@@ -71,12 +77,16 @@ class WikipediaScraper:
                 self.to_json()
                 with open("leaders.json", "w") as file:
                     json.dump(self.dumps, file)
+            elif self.filetype == 'csv':
+                with open('dict.csv', 'w') as csv_file:  
+                    writer = csv.writer(csv_file)
+                    for key, value in mydict.items():
+                        writer.writerow([key, value])
             else:
                 print('Enter a valid filetype, json or excel')
     
+    def __repr__(self) -> str:
+        return "This is a WikipediaScraper object."
 
 wikiscrap = WikipediaScraper()
-wikiscrap.get_leaders('ma')
-wikiscrap.into_dataframe()
-wikiscrap.append_wiki_bio()
-wikiscrap.save_data('excel')
+wikiscrap.get_leaders('ru')
