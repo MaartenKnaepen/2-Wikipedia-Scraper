@@ -1,5 +1,5 @@
-# LeaderScraper 
-LeaderScraper is a Python program designed to scrape information about country leaders from the https://country-leaders.onrender.com api. Additionally, it scrapes Wikipedia to provide a short biography It utilizes the BeautifulSoup library for web scraping and provides an interface to interact with the data through different output formats such as JSON, Excel, and CSV.
+# Wikipedia Scraper
+Wikipedia Scraper is a Python program designed to scrape information about country leaders from the https://country-leaders.onrender.com api. Additionally, it scrapes Wikipedia to provide a short biography It utilizes the BeautifulSoup library for web scraping and provides an interface to interact with the data through different output formats such as JSON, Excel, and CSV.
 
 ## Table of Contents
 Installation
@@ -19,7 +19,7 @@ Install the required dependencies:
 pip install -r requirements.txt
 ```
 ### Usage
-To run the LeaderScraper program, execute the main.py script:
+To run the Wikipedia Scraper program, execute the main.py script:
 
 ```
 python main.py
@@ -42,13 +42,11 @@ Exits the LeaderScraper program.
 Additionally, the program provides feedback for invalid inputs.
 
 ### Dependencies
-LeaderScraper relies on the following Python libraries:
+Wikipedia Scraper relies on the following Python libraries:
 
 requests
 BeautifulSoup
-pandas
 json
-csv
 Install these dependencies using the provided requirements.txt file:
 
 ```
