@@ -1,72 +1,33 @@
-# LeaderScraper 
+# Wikipedia Scraper
+Wikipedia Scraper is a Python program designed for efficiently scraping information about country leaders from Wikipedia. The tool offers a command-line interface, allowing users to interactively select countries, customize data options, and save the scraped information in various file formats.
 
-## IMPORTANT
-This project has 2 versions. The basic branch contains the basic version of the program which automatically gets information and scrapes Wikipedia data for all leaders of all countries and saves the result as a leaders.json file.
+## Installation
+To install Wikipedia Scraper, follow these steps:
 
-The main branch contains an updated version. This version allows for selection of countries and makes Wikipedia scraping optional. Performance has also been improved because of sessions and multithreading. It is also possible to save the output in a .csv or .xlsx file.
-
-## Introduction
-LeaderScraper is a Python program designed to scrape information about country leaders from the https://country-leaders.onrender.com api. Additionally, it scrapes Wikipedia to provide a short biography It utilizes the BeautifulSoup library for web scraping and provides an interface to interact with the data through different output formats such as JSON, Excel, and CSV.
-
-## Table of Contents
-Installation
-Usage
-Dependencies
-Functionalities
-Documentation
-
-### Installation
-Clone the repository:
+Clone the repository to your local machine using the command:
 ```
-git clone https://github.com/your-username/2-Wikipedia-Scraper.git
+git clone https://github.com/your_username/LeaderScraper.git
+cd LeaderScraper
 ```
-
-Install the required dependencies:
+Ensure that you have the required dependencies installed by executing:
 ```
 pip install -r requirements.txt
 ```
-### Usage
-To run the LeaderScraper program, execute the main.py script:
+## Features
+LeaderScraper provides the following features:
 
+### Country Selection: 
+Users can choose countries of interest from a predefined list.
+Biographical Information: An option to include short biographies for each country's leader.
+File Format Options: Choose to save the scraped data in Excel, CSV, or JSON formats.
+### How to Use
+Run the main script using the command:
 ```
 python main.py
 ```
-Follow the on-screen instructions to interact with the program and choose from available options. The following options are available:
+Follow the on-screen prompts to:
 
-Available Countries (Press 1):
-
-Displays a list of available countries.
-
-Leaders of All Countries (Press 2):
-
-Initiates the scraping process to gather information about leaders of selected countries.
-Saves the data in JSON format and provides information about the saved file.
-
-Close the Program (Press 3):
-
-Exits the LeaderScraper program.
-
-Additionally, the program provides feedback for invalid inputs.
-
-### Dependencies
-LeaderScraper relies on the following Python libraries:
-
-requests
-BeautifulSoup
-pandas
-json
-csv
-Install these dependencies using the provided requirements.txt file:
-
-```
-pip install -r requirements.txt
-```
-### Functionalities
-LeaderScraper provides the following functionalities:
-
-Retrieve information about available countries.
-Obtain details about leaders of specific countries.
-Save the scraped data in various formats: JSON, Excel, and CSV.
-### Documentation
-The WikipediaScraper class within scraper.py is the core component of LeaderScraper. 
-For detailed documentation about the class and its methods, refer to the comments and docstrings in the scraper.py file.
+Select countries by entering the corresponding numbers.
+Indicate whether to include short biographies for leaders.
+Choose the desired file format for saving the data.
+Upon completion, the program will save the scraped data in the specified file format with the filename "leaders" (e.g., leaders.xlsx, leaders.json, leaders.csv).
