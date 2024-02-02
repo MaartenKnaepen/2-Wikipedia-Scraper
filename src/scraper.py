@@ -63,7 +63,7 @@ class WikipediaScraper:
         for c in clist:
             self.leader_country_endpoint = self.leaders_endpoint + '?country=' + c
             self.leader = requests.get(self.leader_country_endpoint, cookies=self.cookie)
-            if self.countries.status_code != 200:
+            if self.leader.status_code != 200:
                 self.refresh_cookie()
             self.dict_lst = ['id', 'first_name', 'last_name', 'birth_date', 'death_date', 'place_of_birth',
                              'wikipedia_url', 'start_mandate', 'end_mandate']
