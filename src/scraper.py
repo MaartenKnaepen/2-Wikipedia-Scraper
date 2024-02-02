@@ -126,30 +126,16 @@ class WikipediaScraper:
         if self.filetype == "excel":
             self.df.to_excel(self.filename)
         elif self.filetype == "json":
-            self.to_json()
-            with open(f"{self.filename}.json", "w") as file:
-                json.dump(self.dumps, file)
-        elif self.filetype == 'csv':
-            with open(f"{self.filename}.csv", 'w', newline='', encoding='utf-8') as csv_file:
-                fieldnames = ['id', 'first_name', 'last_name', 'birth_date', 'death_date', 'place_of_birth',
-                               'wikipedia_url', 'start_mandate', 'end_mandate', 'biography']
-
-                writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
-
-                # Write the header
-                writer.writeheader()
-
-                # Write data rows
-                for leader_data in self.leaders_data:
-                    writer.writerow(leader_data)
-        else:
-            raise ValueError('Enter a valid filetype: json, excel, or csv')
-
+            #self.to_json()
+            with open(f'{self.filename}.json', "w", encoding="utf-8") as file:
+                json.dump(self.leaders_data, file, indent=4)
+                
+        
     def to_json(self):
         """
         Convert the scraped data to JSON format.
         """
-        self.dumps = dumps(self.leaders_data, indent=2)
+        self.dumps = json.dump(self.leaders_data, indent=2)
 
     def __repr__(self) -> str:
         return "This is a WikipediaScraper object."
