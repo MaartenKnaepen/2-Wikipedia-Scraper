@@ -21,8 +21,17 @@ class WikipediaScraper:
         print('New cookie created!')
     
     def get_countries(self):
-        self.countries = requests.get(self.country_endpoint, cookies = self.cookie)
-        print(f"The retrieved countries are: {self.countries.text}")
+        """
+        Retrieve and return information about available countries.
+
+        Returns:
+        - str: A string containing information about available countries.
+        """
+        self.countries = requests.get(self.country_endpoint, cookies=self.cookie)
+        if self.countries.status_code != 200:
+            self.refresh_cookie()
+        self.countries = requests.get(self.country_endpoint, cookies=self.cookie)
+        return self.countries.text
 
     def get_leaders(self, country: str) -> None:
         if country in ["ma","us","fr","be","ru"]:
@@ -74,6 +83,11 @@ class WikipediaScraper:
             else:
                 print('Enter a valid filetype, json or excel')
     
+    def multiple_countries(self, country_list: list):
+        for country in country_list:
+            if country in self.get_countries():
+                self.get_leaders(country)
+                self.into_dataframe()
 
 wikiscrap = WikipediaScraper()
 wikiscrap.get_leaders('ma')
