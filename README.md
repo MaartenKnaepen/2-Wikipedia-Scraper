@@ -1,4 +1,11 @@
 # LeaderScraper 
+
+## IMPORTANT
+This project has 2 versions. The basic branch contains the basic version of the program which automatically gets information and scrapes Wikipedia data for all leaders of all countries and saves the result as a leaders.json file.
+
+The main branch contains an updated version. This version allows for selection of countries and makes Wikipedia scraping optional. Performance has also been improved because of sessions and multithreading. It is also possible to save the output in a .csv or .xlsx file.
+
+## Introduction
 LeaderScraper is a Python program designed to scrape information about country leaders from the https://country-leaders.onrender.com api. Additionally, it scrapes Wikipedia to provide a short biography It utilizes the BeautifulSoup library for web scraping and provides an interface to interact with the data through different output formats such as JSON, Excel, and CSV.
 
 ## Table of Contents
