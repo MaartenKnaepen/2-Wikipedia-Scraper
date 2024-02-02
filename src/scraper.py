@@ -47,8 +47,10 @@ class WikipediaScraper:
         - str: A string containing information about available countries.
         """
         self.countries = requests.get(self.country_endpoint, cookies=self.cookie)
-        while self.countries.status_code != 200:
+        if self.countries.status_code != 200:
             self.refresh_cookie()
+        self.countries = requests.get(self.country_endpoint, cookies=self.cookie)
+
         return self.countries.text
 
     def get_leaders(self) -> None:
