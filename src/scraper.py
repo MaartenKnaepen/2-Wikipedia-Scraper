@@ -56,41 +56,65 @@ class WikipediaScraper:
         self.paragraph = re.sub(r'\s{2,}', " ", self.paragraph)       # Reduce all multiple spaces to one space
         self.paragraph = re.sub(r'\s+([.,])', r'\1', self.paragraph)    # Remove spaces before points or commas
         return self.paragraph
-  
+
     def append_wiki_bio(self):
         bio = []
-        for url in self.df['wikipedia_url']:
-            self.paragraph = self.get_first_paragraph(url)
-            bio.append(self.paragraph)
-        self.df['biography'] = bio
+        for url in self.outputdf['wikipedia_url']:
+            if url is not None:
+                self.paragraph = self.get_first_paragraph(url)
+                bio.append(self.paragraph)
+        self.outputdf['biography'] = bio
 
     def into_dataframe(self):
         self.df = pd.DataFrame(self.leader_json)
+        return self.df
 
     def to_json(self):
             self.result = self.df.to_json(orient="index")
-            self.parsed = loads(self.result)
-            self.dumps = dumps(self.parsed, indent=4)  
+            self.parsed = loads(self.result)  
 
-    def save_data(self, filetype):
+    def save_data(self, filetype:str):
             self.filetype = filetype
             if self.filetype == "excel":
-                self.df.to_excel('leaders.xlsx')
+                self.outputdf.to_excel('leaders.xlsx')
             elif self.filetype == "json":
                 self.to_json()
                 with open("leaders.json", "w") as file:
-                    json.dump(self.dumps, file)
+                    json.dump(self.parsed, file, indent=4)
+            elif self.filetype == 'csv':
+                self.outputdf.to_csv('leaders.csv')
             else:
-                print('Enter a valid filetype, json or excel')
+                print('Enter a valid filetype, json, csv or excel')
     
     def multiple_countries(self, country_list: list):
+        self.outputdf = pd.DataFrame()  # Initialize an empty DataFrame
         for country in country_list:
-            if country in self.get_countries():
                 self.get_leaders(country)
                 self.into_dataframe()
+                self.outputdf = pd.concat([self.outputdf, self.df], ignore_index=True)  # Assign the result back to self.outputdf
+        return self.outputdf
+    
+    def country_selector(self):
+        country_list = []
+        while True:
+            user_input = input("Enter a number or '0' to stop: ")
 
-wikiscrap = WikipediaScraper()
-wikiscrap.get_leaders('ma')
-wikiscrap.into_dataframe()
-wikiscrap.append_wiki_bio()
-wikiscrap.save_data('excel')
+            if user_input == '0':
+                print("Exiting the country selector.")
+                break  # Exit the loop if the user enters '0'
+            elif user_input == '1':
+                country_list.append('be')
+            elif user_input == '2':
+                country_list.append('fr')
+            elif user_input == '3':
+                country_list.append('ma')
+            elif user_input == '4':
+                country_list.append('ru')
+            elif user_input == '5':
+                country_list.append('us')
+            # Add more conditions as needed
+            else:
+                print("Invalid input. Please enter a valid number or '0' to stop.")
+
+        return country_list
+ 
