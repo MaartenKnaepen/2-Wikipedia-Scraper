@@ -29,11 +29,13 @@ def main():
     wikiscrap.multiple_countries(countrylist)
     print('Info about leaders of your selected countries is loaded!')
 
+    #wikiscrap.into_dataframe()
+
     # Option to include short biography for each leader
     bio_flag = input('Do you want to include a short bio for each leader? yes or no.  ')
     if bio_flag == 'yes':
         wikiscrap.append_wiki_bio_multi()
-    print('Short biographies are attached!')
+        print('Short biographies are attached!')
 
     # Choose the file format and save the data
     filetype_flag = input('How do you want to save your file? excel, csv, or json   ')

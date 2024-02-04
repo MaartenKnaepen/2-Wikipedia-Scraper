@@ -191,18 +191,20 @@ class WikipediaScraper:
         Allow the user to select countries.
 
         Returns:
-        - list: List of selected country codes.
+        - list: List of selected country codes without duplicates.
         """
-        country_list = []
+        country_mapping = {'1': 'be', '2': 'fr', '3': 'ma', '4': 'ru', '5': 'us'}
+        selected_countries = set()
+
         while True:
             user_input = input("Enter a number or '0' to stop: ")
 
             if user_input == '0':
                 print("Exiting the country selector.")
                 break  # Exit the loop if the user enters '0'
-            elif user_input in ['1', '2', '3', '4', '5']:
-                country_list.append(user_input)
+            elif user_input in country_mapping:
+                selected_countries.add(country_mapping[user_input])
             else:
                 print("Invalid input. Please enter a valid number or '0' to stop.")
 
-        return country_list
+        return list(selected_countries)
