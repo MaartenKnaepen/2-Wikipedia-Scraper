@@ -6,7 +6,7 @@ To install Wikipedia Scraper, follow these steps:
 
 Clone the repository to your local machine using the command:
 ```
-git clone https://github.com/your_username/LeaderScraper.git
+git clone https://github.com/MaartenKnaepen/LeaderScraper.git
 ```
 cd LeaderScraper
 
