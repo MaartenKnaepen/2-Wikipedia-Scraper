@@ -11,7 +11,7 @@ Documentation
 ### Installation
 Clone the repository:
 ```
-git clone https://github.com/your-username/2-Wikipedia-Scraper.git
+git clone https://github.com/MaartenKnaepen/2-Wikipedia-Scraper.git
 ```
 
 Install the required dependencies:
